@@ -19,16 +19,16 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp.addons.account_bank_statement_import_camt.camt import CamtParser
+from openerp.addons.account_bank_statement_import_camt.models.parser import CamtParser
 
 
 class PFCamtParser(CamtParser):
     """Parser for camt bank statement files of PostFinance SA."""
 
-    def parse_transaction_details(self, ns, node, transaction):
+    def parse_transaction_details(self, node, transaction):
         """Change how reference is read."""
         # eref
         self.add_value_from_node(
-            ns, node, './ns:Refs/ns:AcctSvcrRef', transaction, 'eref')
+            node, './ns:Refs/ns:AcctSvcrRef', transaction, 'eref')
         super(PFCamtParser, self).parse_transaction_details(
-            ns, node, transaction)
+            node, transaction)

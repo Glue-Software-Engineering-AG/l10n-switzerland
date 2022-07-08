@@ -27,10 +27,12 @@
     ],
     'author': 'Camptocamp, Odoo Community Association (OCA)',
     'website': 'http://www.camptocamp.com',
+    'license': 'AGPL-3',
     'data': [
         'wizard/l10n_ch_import_cresus_view.xml',
         'account_tax_view.xml',
         'menu.xml',
     ],
     'installable': True,
+    'license': 'AGPL-3',
 }

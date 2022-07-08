@@ -65,10 +65,44 @@
           <RmtInf>
             <Strd>
               <CdtrRefInf>
-                <Ref>${invoice.reference}</Ref>
+                <Ref>${invoice.reference.replace(' ', '')}</Ref>
               </CdtrRefInf>
             </Strd>
           </RmtInf>
+   % endif
+   % if invoice.reference_type == 'QRR':
+          <RmtInf>
+            <Strd>
+              <CdtrRefInf>
+                  <Tp>
+                      <CdOrPrtry>
+                          <Prtry>QRR</Prtry>
+                      </CdOrPrtry>
+                  </Tp>
+                <Ref>${line.communication.replace(' ', '')}</Ref>
+              </CdtrRefInf>
+   %if invoice.supplier_invoice_number:
+              <AddtlRmtInf>${invoice.supplier_invoice_number}</AddtlRmtInf>
+   %endif
+            </Strd>
+          </RmtInf>
+   % endif
+   % if invoice.reference_type == 'SCOR':
+       <RmtInf>
+           <Strd>
+               <CdtrRefInf>
+                   <Tp>
+                       <CdOrPrtry>
+                           <Prtry>SCOR</Prtry>
+                       </CdOrPrtry>
+                   </Tp>
+                   <Ref>${line.communication}</Ref>
+               </CdtrRefInf>
+               %if invoice.supplier_invoice_number:
+                   <AddtlRmtInf>${invoice.supplier_invoice_number}</AddtlRmtInf>
+               %endif
+           </Strd>
+       </RmtInf>
    % endif
 </%block>
 
