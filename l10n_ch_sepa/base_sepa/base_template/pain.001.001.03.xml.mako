@@ -60,17 +60,6 @@
           </Amt>
           <ChrgBr>SLEV</ChrgBr>
 
-          <%block name="CdtrAgt">
-            <%
-            line=sepa_context['line']
-            invoice = line.move_line_id.invoice
-            %>
-            <CdtrAgt>
-              <FinInstnId>
-                <BIC>${line.bank_id.bank.bic or line.bank_id.bank_bic}</BIC>
-              </FinInstnId>
-            </CdtrAgt>
-          </%block>
           <Cdtr>
             <Nm>${line.partner_id.name}</Nm>\
             ${self.address(line.partner_id)}\
