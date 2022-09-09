@@ -45,6 +45,8 @@ class AccountInvoice(models.Model):
         """
         res = super(AccountInvoice, self)._get_reference_type()
         res.append(('bvr', 'BVR'))
+        res.append(('QRR', 'QR-Bill with QR-IBAN and Reference Number'))
+        res.append(('SCOR', 'QR-Bill with IBAN and Reference Text'))
         return res
 
     reference = fields.Char(copy=False)

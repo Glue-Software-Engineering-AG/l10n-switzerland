@@ -79,7 +79,7 @@
                           <Prtry>QRR</Prtry>
                       </CdOrPrtry>
                   </Tp>
-                <Ref>${line.communication.replace(' ', '')}</Ref>
+                <Ref>${invoice.reference.replace(' ', '')}</Ref>
               </CdtrRefInf>
    %if invoice.supplier_invoice_number:
               <AddtlRmtInf>${invoice.supplier_invoice_number}</AddtlRmtInf>
