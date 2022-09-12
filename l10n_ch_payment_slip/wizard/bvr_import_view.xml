@@ -30,7 +30,7 @@
       <field name="target">new</field>
     </record>
 
-    <record model="ir.ui.view" id="view_bank_statement_form">
+    <!-- record model="ir.ui.view" id="view_bank_statement_form">
       <field name="name">account.bank.statement.form.inherit</field>
       <field name="model">account.bank.statement</field>
       <field name="type">form</field>
@@ -47,6 +47,6 @@
               type="action"/>
         </div>
       </field>
-    </record>
+    </record -->
   </data>
 </openerp>
