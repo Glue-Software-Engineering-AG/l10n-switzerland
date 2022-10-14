@@ -103,6 +103,11 @@ class Pain001(MsgSEPA):
                     _('ErrorCreditorBank '
                       'No bank selected for creditor of invoice %s')
                     % (line.name,))
+            if not crd_bank_acc.bank.bic and not crd_bank_acc.bank_bic:
+                raise exceptions.Warning(
+                    _('ErrorCreditorBankBIC '
+                      'Creditor bank account has no BIC number for invoice %s')
+                    % (line.name,))
             if (not crd_bank_acc.state == 'iban' and
                     not crd_bank_acc.get_account_number()):
                 raise exceptions.Warning(
