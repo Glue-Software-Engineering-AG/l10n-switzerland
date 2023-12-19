@@ -71,7 +71,7 @@
           </RmtInf>
    % endif
    % if invoice.reference_type == 'none':
-   %if invoice.supplier_invoice_number:
+   % if invoice.supplier_invoice_number:
         <RmtInf>
           <Ustrd>${invoice.supplier_invoice_number}</Ustrd>
         </RmtInf>
