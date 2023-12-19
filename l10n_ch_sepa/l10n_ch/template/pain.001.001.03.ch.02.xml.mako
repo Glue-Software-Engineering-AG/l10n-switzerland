@@ -70,6 +70,13 @@
             </Strd>
           </RmtInf>
    % endif
+   % if invoice.reference_type == 'none':
+   %if invoice.supplier_invoice_number:
+        <RmtInf>
+          <Ustrd>${invoice.supplier_invoice_number}</Ustrd>
+        </RmtInf>
+   % endif
+   % endif
    % if invoice.reference_type == 'QRR':
           <RmtInf>
             <Strd>
