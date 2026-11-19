@@ -22,7 +22,7 @@
 {
     "name": "Switzerland - SEPA Electronic Payment File",
     "summary": "Generate pain.001 Credit Transfert Files for your payments",
-    "version": "8.0.1.0.1",
+    "version": "8.0.1.1.0",
     "category": "Finance",
     "description": """
 Swiss electronic payment (SEPA)
@@ -38,6 +38,10 @@ It intends to be reusable to accept new definition of specific standards
 by country.
 
 It currently supports the "pain.001" norm for Credit Transfert Initiation.
+For Switzerland, pain.001.001.09.ch.03 (Swiss Payment Standards 2022+) is
+generated. The former version pain.001.001.03.ch.02 can still be used by
+setting the system parameter "l10n_ch_sepa.pain_001_definition" to
+"pain.001.ch.02".
 
 """,
     "author": "Camptocamp,Odoo Community Association (OCA)",
