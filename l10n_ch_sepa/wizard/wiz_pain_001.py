@@ -31,9 +31,14 @@
 import time
 import base64
 
-from openerp import models, fields
+from openerp import models, fields, exceptions
+from openerp.tools.translate import _
 
 from ..base_sepa.msg_sepa import MsgSEPAFactory
+
+# System parameter to force a message definition (e.g. 'pain.001.ch.02')
+# instead of the one derived from the country of the company bank
+PAIN_DEF_PARAM = 'l10n_ch_sepa.pain_001_definition'
 
 
 class WizardPain001(models.TransientModel):
@@ -98,8 +103,18 @@ class WizardPain001(models.TransientModel):
 
         payment = payment_obj.browse(cr, uid, pay_id, context=context)
 
-        cc = self._get_country_code(payment)
-        pain = self._get_pain_def(cc)
+        forced_def = self.pool['ir.config_parameter'].get_param(
+            cr, uid, PAIN_DEF_PARAM, context=context)
+        if forced_def:
+            if not MsgSEPAFactory.has_instance(forced_def):
+                raise exceptions.Warning(
+                    _('The message definition "%s" set in the system '
+                      'parameter "%s" does not exist.')
+                    % (forced_def, PAIN_DEF_PARAM))
+            pain = MsgSEPAFactory.get_instance(forced_def)
+        else:
+            cc = self._get_country_code(payment)
+            pain = self._get_pain_def(cc)
 
         pain_001 = pain.compute_export(cr, uid, pay_id, context=context)
         pain_001_file = base64.encodestring(pain_001.encode('utf-8'))
