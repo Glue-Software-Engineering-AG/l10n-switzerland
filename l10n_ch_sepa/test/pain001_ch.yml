@@ -139,3 +139,20 @@
     data = wiz.read(['pain_001_file'])
     pain_001_file = base64.decodestring(data[0]['pain_001_file'] or '')
     assert pain_001_file, "File is empty"
+    assert 'pain.001.001.09.ch.03.xsd' in pain_001_file, "Swiss version 09 (ch.03) not used"
+
+-
+  I force the former Swiss version pain.001.001.03.ch.02 with the system parameter and generate the pain 001 message again
+-
+  !python {model: wizard.pain001}: |
+    import base64
+    param_obj = self.pool['ir.config_parameter']
+    param_obj.set_param(cr, uid, 'l10n_ch_sepa.pain_001_definition', 'pain.001.ch.02')
+    wiz_id = self.create(cr, uid, {})
+    wiz = self.browse(cr, uid, wiz_id)
+    pay_order_id = ref("pain001_ch_payment_order")
+    wiz.with_context(active_ids=[pay_order_id], active_id=pay_order_id).create_pain_001()
+    data = wiz.read(['pain_001_file'])
+    pain_001_file = base64.decodestring(data[0]['pain_001_file'] or '')
+    param_obj.set_param(cr, uid, 'l10n_ch_sepa.pain_001_definition', False)
+    assert 'pain.001.001.03.ch.02.xsd' in pain_001_file, "Former Swiss version (ch.02) not used"

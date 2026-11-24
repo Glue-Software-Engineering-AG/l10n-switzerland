@@ -24,13 +24,19 @@ import os
 from ..base_sepa.msg_sepa import MsgSEPAFactory
 from ..base_sepa.pain_001 import Pain001
 
-_xsd_path = os.path.join('l10n_ch', 'xsd',
-                         'pain.001.001.03.ch.02.xsd')
 _tmpl_dirs = [os.path.join('l10n_ch', 'template')]
-_tmpl_name = 'pain.001.001.03.ch.02.xml.mako'
 
+# Swiss Payment Standards 2022+ (default for Switzerland)
+MsgSEPAFactory.register_class(
+    'pain.001.ch', Pain001,
+    xsd_path=os.path.join('l10n_ch', 'xsd', 'pain.001.001.09.ch.03.xsd'),
+    tmpl_dirs=_tmpl_dirs,
+    tmpl_name='pain.001.001.09.ch.03.xml.mako')
 
-MsgSEPAFactory.register_class('pain.001.ch', Pain001,
-                              xsd_path=_xsd_path,
-                              tmpl_dirs=_tmpl_dirs,
-                              tmpl_name=_tmpl_name)
+# Former Swiss version, only used when selected explicitly through the
+# system parameter 'l10n_ch_sepa.pain_001_definition'
+MsgSEPAFactory.register_class(
+    'pain.001.ch.02', Pain001,
+    xsd_path=os.path.join('l10n_ch', 'xsd', 'pain.001.001.03.ch.02.xsd'),
+    tmpl_dirs=_tmpl_dirs,
+    tmpl_name='pain.001.001.03.ch.02.xml.mako')
